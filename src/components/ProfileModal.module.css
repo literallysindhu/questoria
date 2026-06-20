@@ -1,0 +1,362 @@
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(10, 5, 21, 0.7);
+  backdrop-filter: blur(8px);
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.modalCard {
+  width: 100%;
+  max-width: 560px;
+  position: relative;
+  z-index: 2001;
+  animation: scale-in 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+@keyframes scale-in {
+  from { transform: scale(0.9); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.closeBtn {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  background: transparent;
+  border: none;
+  color: var(--color-border-gold);
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  z-index: 10;
+}
+
+.closeBtn:hover {
+  color: var(--color-gold);
+  background: rgba(255,255,255,0.05);
+}
+
+.modalTitle {
+  font-family: var(--font-fantasy);
+  color: var(--color-gold);
+  font-size: 1.35rem;
+  font-weight: 800;
+  margin-bottom: 20px;
+  letter-spacing: 0.5px;
+  border-bottom: 2px double rgba(229, 193, 88, 0.25);
+  padding-bottom: 6px;
+}
+
+.profileStats {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+
+.profileRankBox {
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(229, 193, 88, 0.2);
+  border-radius: 12px;
+  padding: 12px 16px;
+  text-align: center;
+  box-shadow: inset 0 0 10px rgba(0,0,0,0.4);
+}
+
+.profileRankLabel {
+  font-size: 0.8rem;
+  color: var(--color-gold-light);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+
+.profileRankValue {
+  font-family: var(--font-fantasy);
+  color: var(--color-gold);
+  font-size: 1.35rem;
+  font-weight: bold;
+  margin-top: 4px;
+}
+
+.profileGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.statBox {
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(229, 193, 88, 0.15);
+  border-radius: 10px;
+  padding: 12px;
+  text-align: center;
+}
+
+.statLabel {
+  font-size: 0.8rem;
+  color: var(--color-cream-dark);
+  margin-bottom: 4px;
+}
+
+.statValue {
+  font-family: var(--font-fantasy);
+  color: var(--color-cream);
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+/* Saves Section */
+.savesSection {
+  margin-top: 8px;
+  border-top: 2px double rgba(229, 193, 88, 0.25);
+  padding-top: 16px;
+}
+
+.savesTitle {
+  font-family: var(--font-fantasy);
+  color: var(--color-gold-light);
+  font-size: 1.1rem;
+  margin-bottom: 12px;
+  letter-spacing: 0.5px;
+}
+
+.slotsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 16px;
+  max-height: 190px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+/* Scrollbar styling for slot slots list */
+.slotsContainer::-webkit-scrollbar {
+  width: 6px;
+}
+.slotsContainer::-webkit-scrollbar-track {
+  background: rgba(0,0,0,0.1);
+}
+.slotsContainer::-webkit-scrollbar-thumb {
+  background: var(--color-border-gold);
+  border-radius: 3px;
+}
+
+.slotRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.45);
+  border: 1px solid rgba(229, 193, 88, 0.15);
+  border-radius: 10px;
+  padding: 8px 14px;
+  transition: all 0.2s ease;
+}
+
+.slotRow:hover {
+  border-color: rgba(229, 193, 88, 0.35);
+  background: rgba(0, 0, 0, 0.55);
+}
+
+.slotInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+}
+
+.slotName {
+  font-family: var(--font-fantasy);
+  color: var(--color-cream);
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.slotMeta {
+  font-size: 0.75rem;
+  color: var(--color-cream-dark);
+  opacity: 0.7;
+}
+
+.slotActions {
+  display: flex;
+  gap: 8px;
+}
+
+.slotBtn {
+  background: linear-gradient(135deg, #2d164f, #180933);
+  border: 1px solid var(--color-border-gold);
+  border-radius: 6px;
+  color: var(--color-gold-light);
+  padding: 5px 12px;
+  font-size: 0.78rem;
+  font-family: var(--font-fantasy);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+}
+
+.slotBtn:hover {
+  background: var(--color-gold);
+  color: var(--color-bg-deep);
+  border-color: var(--color-gold);
+}
+
+.slotBtnDanger {
+  background: rgba(231, 76, 60, 0.2);
+  border: 1px solid rgba(231, 76, 60, 0.4);
+  color: #f19f9f;
+  padding: 5px 8px;
+}
+
+.slotBtnDanger:hover {
+  background: var(--color-red-solid);
+  color: #fff;
+  border-color: var(--color-red-solid);
+}
+
+.backupContainer {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  align-items: center;
+}
+
+.backupBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+  color: var(--color-cream);
+  padding: 8px 16px;
+  font-size: 0.82rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: var(--font-sans);
+}
+
+.backupBtn:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.35);
+}
+
+@media (max-width: 768px) {
+  .profileGrid {
+    grid-template-columns: 1fr;
+  }
+  .backupContainer {
+    flex-direction: column;
+    width: 100%;
+  }
+  .backupBtn {
+    width: 100%;
+    justify-content: center;
+  }
+  .slotRow {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    width: 100%;
+  }
+  .slotActions {
+    width: 100%;
+    justify-content: flex-end;
+  }
+}
+
+/* Custom dialog system for iframe compatibility */
+.customDialogOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(10, 5, 21, 0.75);
+  backdrop-filter: blur(8px);
+  z-index: 3000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.customDialogCard {
+  width: 100%;
+  max-width: 420px;
+  position: relative;
+  z-index: 3001;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  background-color: var(--color-bg-deep);
+  border: var(--border-fantasy);
+  padding: 24px !important;
+  border-radius: 16px;
+  box-shadow: var(--shadow-fantasy-large);
+  animation: scale-in 0.25s ease-out forwards;
+}
+
+.customDialogCard h4 {
+  font-family: var(--font-fantasy);
+  color: var(--color-gold);
+  font-size: 1.25rem;
+  margin: 0;
+}
+
+.customDialogCard p {
+  color: var(--color-cream);
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.dialogInput {
+  width: 100%;
+  padding: 10px 14px;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid var(--color-border-gold);
+  border-radius: 8px;
+  color: var(--color-cream);
+  font-size: 1rem;
+  outline: none;
+  text-align: center;
+}
+
+.dialogInput:focus {
+  border-color: var(--color-gold);
+  box-shadow: 0 0 8px rgba(229, 193, 88, 0.35);
+}
+
+.dialogActions {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+  justify-content: center;
+  margin-top: 8px;
+}
+
+.dialogActions button {
+  flex: 1;
+  padding: 8px 16px;
+  font-size: 0.9rem;
+}

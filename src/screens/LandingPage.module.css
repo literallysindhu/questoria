@@ -1,0 +1,525 @@
+.container {
+  min-height: 100vh;
+  width: 100vw;
+  background: radial-gradient(circle at center, rgba(16, 8, 38, 0.4) 0%, rgba(10, 5, 21, 0.9) 100%), 
+              url('../assets/hero background.png') no-repeat center center;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 40px 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.navbar {
+  display: flex;
+  gap: 24px;
+  margin-bottom: 60px;
+  z-index: 10;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  max-width: 800px;
+  margin: auto 0;
+  z-index: 5;
+}
+
+.brandContainer {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 15px;
+  animation: float 5s ease-in-out infinite;
+}
+
+.brandName {
+  font-family: var(--font-fantasy);
+  font-size: 6rem;
+  font-weight: 900;
+  letter-spacing: 8px;
+  text-transform: uppercase;
+  background: linear-gradient(
+    90deg, 
+    #aa841c 0%, 
+    #f3e5ab 25%, 
+    #ffe875 50%, 
+    #d4af37 75%, 
+    #aa841c 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shine 4s linear infinite;
+  filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.6))
+          drop-shadow(0 0 3px rgba(255, 255, 255, 0.3));
+  line-height: 1.1;
+  margin: 0;
+  text-shadow: none;
+}
+
+.sparkle {
+  position: absolute;
+  color: #fff4b8;
+  font-size: 1.8rem;
+  text-shadow: 0 0 10px #ffe875, 0 0 20px #ffe875;
+  pointer-events: none;
+  animation: twinkle 3s infinite ease-in-out;
+  opacity: 0;
+}
+
+.sparkle1 {
+  top: -12px;
+  left: -24px;
+  animation-delay: 0s;
+}
+
+.sparkle2 {
+  bottom: 8px;
+  left: -40px;
+  font-size: 1.3rem;
+  animation-delay: 0.8s;
+}
+
+.sparkle3 {
+  top: -18px;
+  right: -28px;
+  font-size: 1.5rem;
+  animation-delay: 1.5s;
+}
+
+.sparkle4 {
+  bottom: 2px;
+  right: -36px;
+  font-size: 1.2rem;
+  animation-delay: 0.4s;
+}
+
+.mainTitle {
+  font-size: 2.2rem;
+  font-weight: 800;
+  margin-top: 10px;
+  margin-bottom: 8px;
+  line-height: 1.2;
+}
+
+.subtitle {
+  font-family: var(--font-fantasy);
+  color: var(--color-gold);
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+  letter-spacing: 2px;
+}
+
+.introCard {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  max-width: 600px;
+  margin-bottom: 40px;
+  text-align: left;
+}
+
+.mascotFrame {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 2px solid var(--color-gold);
+  overflow: hidden;
+  flex-shrink: 0;
+  background: radial-gradient(circle, #2d1b54, #130a27);
+  box-shadow: var(--shadow-fantasy);
+}
+
+.mascotImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.05);
+}
+
+.introText p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: var(--color-cream);
+}
+
+.sparkles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  background-image: 
+    radial-gradient(circle, rgba(255,255,255,0.15) 1px, transparent 1px),
+    radial-gradient(circle, rgba(212,175,55,0.2) 2px, transparent 2px);
+  background-size: 80px 80px, 120px 120px;
+  background-position: 0 0, 40px 60px;
+  animation: sparklesMove 30s linear infinite;
+  opacity: 0.6;
+}
+
+@keyframes sparklesMove {
+  from { background-position: 0 0, 40px 60px; }
+  to { background-position: 80px 240px, 160px 300px; }
+}
+
+@keyframes twinkle {
+  0%, 100% {
+    opacity: 0;
+    transform: scale(0.5) rotate(0deg);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.3) rotate(180deg);
+  }
+}
+
+@keyframes shine {
+  0% {
+    background-position: 0% center;
+  }
+  100% {
+    background-position: -200% center;
+  }
+}
+
+/* ========================================================
+   Loading Screen & Clouds Dispersal
+   ======================================================== */
+.loaderOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.progressBox {
+  position: relative;
+  z-index: 10001;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  width: 90%;
+  max-width: 380px;
+  text-align: center;
+  transition: opacity 0.5s ease-out;
+}
+
+.fadeProgress .progressBox {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.loaderSpinner {
+  width: 48px;
+  height: 48px;
+  border: 3px solid rgba(212, 175, 55, 0.15);
+  border-top-color: var(--color-gold);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.loaderTitle {
+  font-family: var(--font-fantasy);
+  color: var(--color-gold-light);
+  font-size: 1.35rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.6);
+}
+
+.progressBarBg {
+  width: 100%;
+  height: 10px;
+  background: rgba(10, 5, 21, 0.7);
+  border: 1px solid var(--color-border-gold);
+  border-radius: 9999px;
+  overflow: hidden;
+}
+
+.progressBarFill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--color-border-gold), var(--color-gold-light));
+  border-radius: 9999px;
+  transition: width 0.15s linear;
+}
+
+.progressPercent {
+  font-family: var(--font-sans);
+  color: var(--color-cream);
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+/* Cloud Panels */
+.cloudLeft, .cloudRight {
+  position: absolute;
+  top: 0;
+  width: 50vw;
+  height: 100vh;
+  background-color: #0c051a;
+  z-index: 10000;
+  transition: transform 1.2s cubic-bezier(0.77, 0, 0.175, 1);
+  box-shadow: 0 0 100px rgba(0,0,0,0.9);
+}
+
+.cloudLeft {
+  left: 0;
+}
+
+.cloudRight {
+  right: 0;
+}
+
+/* Fluffy cloud overlay curves along the dispersing edges using rounded shadows */
+.cloudLeft::after, .cloudRight::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  width: 60px;
+  height: 100%;
+  background-image: radial-gradient(circle, #0c051a 70%, transparent 72%);
+  background-size: 80px 80px;
+  filter: drop-shadow(0 0 20px rgba(0,0,0,0.7));
+}
+
+.cloudLeft::after {
+  right: -30px;
+  background-position: right center;
+}
+
+.cloudRight::before {
+  left: -30px;
+  background-position: left center;
+}
+
+/* Dispersing Actions */
+.disperseLeft {
+  transform: translateX(-100%);
+}
+
+.disperseRight {
+  transform: translateX(100%);
+}
+
+/* ========================================================
+   Navbar Informational Modals Overlay
+   ======================================================== */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(10, 5, 21, 0.7);
+  backdrop-filter: blur(8px);
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.modalCard {
+  width: 100%;
+  max-width: 560px;
+  position: relative;
+  z-index: 2001;
+  animation: scale-in 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.closeBtn {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  background: transparent;
+  border: none;
+  color: var(--color-border-gold);
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  z-index: 10;
+}
+
+.closeBtn:hover {
+  color: var(--color-gold);
+  background: rgba(255,255,255,0.05);
+}
+
+.modalTitle {
+  font-family: var(--font-fantasy);
+  color: #583c18; /* Default for parchment */
+  font-size: 1.35rem;
+  font-weight: 800;
+  margin-bottom: 20px;
+  letter-spacing: 0.5px;
+  border-bottom: 2px double rgba(120, 90, 33, 0.25);
+  padding-bottom: 6px;
+}
+
+/* About Modal Content Details */
+.aboutContent {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+.aboutAvatarFrame {
+  width: 130px;
+  height: 160px;
+  border-radius: 12px;
+  border: 2px solid #785a21;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  flex-shrink: 0;
+  background-color: #dfd2b2;
+}
+
+.aboutAvatar {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.aboutText {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #3d2c12;
+}
+
+.aboutText strong {
+  color: #583c18;
+}
+
+/* Stack Modal Content Details */
+.stackGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.stackItem {
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(229, 193, 88, 0.15);
+  border-radius: 10px;
+  padding: 12px 14px;
+  font-size: 0.88rem;
+  color: var(--color-cream);
+  line-height: 1.4;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+}
+
+/* Profile Modal Content Details */
+.profileStats {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+
+.profileRankBox {
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(229, 193, 88, 0.2);
+  border-radius: 12px;
+  padding: 12px 16px;
+  text-align: center;
+  box-shadow: inset 0 0 10px rgba(0,0,0,0.4);
+}
+
+.profileRankLabel {
+  font-size: 0.8rem;
+  color: var(--color-gold-light);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+
+.profileRankValue {
+  font-family: var(--font-fantasy);
+  color: var(--color-gold);
+  font-size: 1.35rem;
+  font-weight: bold;
+  margin-top: 4px;
+}
+
+.profileGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.statBox {
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(229, 193, 88, 0.15);
+  border-radius: 10px;
+  padding: 12px;
+  text-align: center;
+}
+
+.statLabel {
+  font-size: 0.8rem;
+  color: var(--color-cream-dark);
+  margin-bottom: 4px;
+}
+
+.statValue {
+  font-family: var(--font-fantasy);
+  color: var(--color-cream);
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+@media (max-width: 768px) {
+  .brandName {
+    font-size: 3.5rem;
+    letter-spacing: 4px;
+  }
+
+  .mainTitle {
+    font-size: 1.6rem;
+  }
+  
+  .introCard {
+    flex-direction: column;
+    text-align: center;
+    padding: 20px;
+    gap: 16px;
+  }
+
+  .aboutContent {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .stackGrid, .profileGrid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,280 @@
+.container {
+  min-height: 100vh;
+  width: 100vw;
+  background: radial-gradient(circle at center, rgba(16, 8, 38, 0.45) 0%, rgba(10, 5, 21, 0.95) 100%), 
+              url('../assets/map area final.png') no-repeat center center;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 24px;
+  position: relative;
+}
+
+.header {
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  z-index: 10;
+}
+
+.resetBtn {
+  background: transparent;
+  border: none;
+  color: rgba(255,255,255,0.4);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+  transition: all 0.2s ease;
+  font-family: var(--font-sans);
+}
+
+.resetBtn:hover {
+  color: var(--color-red-solid);
+}
+
+.titleContainer {
+  text-align: center;
+  margin-bottom: 40px;
+  z-index: 5;
+}
+
+.titleContainer h2 {
+  font-size: 2.8rem;
+  margin-bottom: 8px;
+}
+
+.subtitle {
+  color: var(--color-gold);
+  font-family: var(--font-fantasy);
+  font-size: 1.2rem;
+  letter-spacing: 1px;
+}
+
+.mapGrid {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  flex-wrap: wrap;
+  max-width: 1100px;
+  margin: auto 0;
+  padding-bottom: 120px; /* Leave room for Mascot Guide at the bottom */
+  z-index: 5;
+}
+
+.node {
+  background-color: var(--color-purple-panel);
+  border: var(--border-fantasy);
+  border-radius: 24px;
+  padding: 20px;
+  width: 250px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  position: relative;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
+  backdrop-filter: var(--glassmorphism);
+}
+
+.node:hover {
+  transform: translateY(-8px) scale(1.04);
+}
+
+.unlocked:hover {
+  box-shadow: var(--shadow-fantasy-large);
+  border-color: var(--color-gold);
+}
+
+.locked {
+  opacity: 0.65;
+  filter: grayscale(0.85);
+  cursor: not-allowed;
+}
+
+.locked:hover {
+  border-color: var(--color-red-solid);
+}
+
+.iconWrapper {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid var(--color-border-gold);
+  background: radial-gradient(circle, #2a164c, #0e051c);
+  margin-bottom: 16px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: inset 0 0 15px rgba(0,0,0,0.6);
+}
+
+.unlocked:hover .iconWrapper {
+  border-color: var(--color-gold);
+  box-shadow: 0 0 15px var(--color-gold-glow);
+}
+
+.icon {
+  width: 92%;
+  height: 92%;
+  object-fit: cover;
+  border-radius: 50%;
+  transition: transform 0.4s ease;
+}
+
+.unlocked:hover .icon {
+  transform: scale(1.08);
+}
+
+.lockOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.65);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.nodeTitle {
+  font-family: var(--font-fantasy);
+  color: var(--color-cream);
+  font-size: 1.2rem;
+  margin-bottom: 12px;
+  text-align: center;
+  letter-spacing: 0.5px;
+}
+
+.starsWrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+/* More Puzzles to Come Placeholder Node */
+.comingSoon {
+  background: rgba(16, 8, 38, 0.45);
+  border: 2px dashed rgba(139, 107, 33, 0.5);
+  opacity: 0.85;
+}
+
+.comingSoon:hover {
+  border-color: var(--color-gold);
+  box-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
+}
+
+.iconWrapperComingSoon {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  border: 2px dashed rgba(139, 107, 33, 0.4);
+  background: rgba(10, 5, 21, 0.5);
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: inset 0 0 15px rgba(0,0,0,0.5);
+}
+
+.nodeTitleComingSoon {
+  font-family: var(--font-fantasy);
+  color: rgba(253, 246, 226, 0.6);
+  font-size: 1.25rem;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.comingSoonSub {
+  font-family: var(--font-fantasy);
+  font-size: 0.82rem;
+  color: var(--color-gold);
+  letter-spacing: 0.5px;
+  opacity: 0.6;
+}
+
+@media (max-width: 900px) {
+  .mapGrid {
+    gap: 24px;
+    padding-bottom: 160px;
+  }
+}
+
+/* Custom Reset Confirmation Dialog */
+.customDialogOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(10, 5, 21, 0.75);
+  backdrop-filter: blur(8px);
+  z-index: 3000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.customDialogCard {
+  width: 100%;
+  max-width: 420px;
+  position: relative;
+  z-index: 3001;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  background-color: var(--color-bg-deep);
+  border: var(--border-fantasy);
+  padding: 24px !important;
+  border-radius: 16px;
+  box-shadow: var(--shadow-fantasy-large);
+  animation: scale-in 0.25s ease-out forwards;
+}
+
+.customDialogCard h4 {
+  font-family: var(--font-fantasy);
+  color: var(--color-gold);
+  font-size: 1.25rem;
+  margin: 0;
+}
+
+.customDialogCard p {
+  color: var(--color-cream);
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.dialogActions {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+  justify-content: center;
+  margin-top: 8px;
+}
+
+.dialogActions button {
+  flex: 1;
+  padding: 8px 16px;
+  font-size: 0.9rem;
+}
+
+@keyframes scale-in {
+  from { transform: scale(0.9); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
