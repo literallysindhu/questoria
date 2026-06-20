@@ -1,6 +1,30 @@
+import heroMusic from '../assets/hero music.mp3';
+import bubbleSortMusic from '../assets/bubble sort music.mp3';
+import nQueensMusic from '../assets/n queens music.mp3';
+import knapsackMusic from '../assets/knapsack music.mp3';
+
 // Procedural Synthesizer using Web Audio API for fantasy game sound effects
 let audioCtx: AudioContext | null = null;
 let isMuted = false;
+
+const musicTracks = {
+  hero: heroMusic,
+  'bubble-sort': bubbleSortMusic,
+  'n-queens': nQueensMusic,
+  knapsack: knapsackMusic,
+};
+
+let currentAudio: HTMLAudioElement | null = null;
+let currentTrackKey: keyof typeof musicTracks | null = null;
+
+// Handle user interaction autoplay policies
+const startOnInteraction = () => {
+  if (currentAudio && !isMuted && currentAudio.paused) {
+    currentAudio.play().catch(e => console.warn("Interactive play failed:", e));
+  }
+  window.removeEventListener('click', startOnInteraction);
+  window.removeEventListener('keydown', startOnInteraction);
+};
 
 function getAudioContext(): AudioContext {
   if (!audioCtx) {
@@ -14,12 +38,72 @@ function getAudioContext(): AudioContext {
 
 export const toggleMute = (): boolean => {
   isMuted = !isMuted;
+  if (currentAudio) {
+    if (isMuted) {
+      currentAudio.pause();
+    } else {
+      currentAudio.play().catch(e => {
+        console.warn("Music play failed on unmute:", e);
+        window.addEventListener('click', startOnInteraction);
+        window.addEventListener('keydown', startOnInteraction);
+      });
+    }
+  }
   return isMuted;
 };
 
 export const getMuteStatus = (): boolean => {
   return isMuted;
 };
+
+export const playMusic = (key: keyof typeof musicTracks) => {
+  if (currentTrackKey === key) {
+    // If the music is already set but was paused due to mute or autoplay restrictions, resume it
+    if (currentAudio && !isMuted && currentAudio.paused) {
+      currentAudio.play().catch(e => {
+        console.warn("Music resume failed:", e);
+        window.addEventListener('click', startOnInteraction);
+        window.addEventListener('keydown', startOnInteraction);
+      });
+    }
+    return;
+  }
+
+  // Stop current music first
+  if (currentAudio) {
+    currentAudio.pause();
+    currentAudio = null;
+  }
+
+  currentTrackKey = key;
+  const audioPath = musicTracks[key];
+  if (audioPath) {
+    const audio = new Audio(audioPath);
+    audio.loop = true;
+    audio.volume = 0.35; // standard ambient background level
+    currentAudio = audio;
+
+    if (!isMuted) {
+      audio.play().catch(e => {
+        console.warn("Music autoplay blocked:", e);
+        window.addEventListener('click', startOnInteraction);
+        window.addEventListener('keydown', startOnInteraction);
+      });
+    }
+  }
+};
+
+export const stopMusic = () => {
+  if (currentAudio) {
+    currentAudio.pause();
+    currentAudio = null;
+  }
+  currentTrackKey = null;
+  // Clean up any interaction listeners
+  window.removeEventListener('click', startOnInteraction);
+  window.removeEventListener('keydown', startOnInteraction);
+};
+
 
 export const playClick = () => {
   if (isMuted) return;

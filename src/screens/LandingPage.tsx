@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useGameState } from '../contexts/GameStateContext';
-import { playClick, playHover, playMagicUnlock } from '../utils/audio';
+import { playClick, playHover, playMagicUnlock, playMusic } from '../utils/audio';
 import foxNeutral from '../assets/fox neutral.png';
 import creatorPhoto from '../assets/sindhu.jpeg';
 import { X, Cpu, BookOpen } from 'lucide-react';
@@ -77,6 +77,13 @@ export const LandingPage: React.FC = () => {
       img.src = src;
     });
   }, []);
+
+  // Play hero music when loading progress is at 85% or above
+  useEffect(() => {
+    if (progress >= 85) {
+      playMusic('hero');
+    }
+  }, [progress]);
 
   const handleStart = () => {
     playClick();
