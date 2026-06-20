@@ -28,8 +28,10 @@ export const MazeGame: React.FC = () => {
 
   useEffect(() => {
     if (phase !== 'intro') return;
-    setIntroText('');
-    setIsIntroTyping(true);
+    setTimeout(() => {
+      setIntroText('');
+      setIsIntroTyping(true);
+    }, 0);
     let index = 0;
     const interval = setInterval(() => {
       if (index < introFullText.length) {

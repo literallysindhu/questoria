@@ -20,7 +20,8 @@ export const RealmSelection: React.FC = () => {
       "Welcome, adventurer! This is the Kingdom of Algorithms. Start with the Bubble Sort Challenge on the left. Once you clear it, the castle Chess Challenge will unlock!",
       'neutral'
     );
-  }, []);
+  }, [showMascot]);
+
 
   const handleSelectLevel = (level: 'maze' | 'n-queens' | 'knapsack', unlocked: boolean) => {
     if (!unlocked) {

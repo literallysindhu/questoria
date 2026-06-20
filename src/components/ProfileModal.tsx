@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useGameState } from '../contexts/GameStateContext';
+import { useGameState, type GameProgression } from '../contexts/GameStateContext';
 import { playClick, playHover, playMagicUnlock } from '../utils/audio';
 import { X, Award, Star, FolderOpen, Save, Trash2, Download, Upload } from 'lucide-react';
 import styles from './ProfileModal.module.css';
@@ -13,13 +13,16 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({ isOpen, onClose }) =
   const { progression, loadProgression } = useGameState();
 
   // Save slots state
-  const [saveSlots, setSaveSlots] = useState<{ [key: string]: { name: string; progression: any; date: string } | null }>(() => {
+  const [saveSlots, setSaveSlots] = useState<{ [key: string]: { name: string; progression: GameProgression; date: string } | null }>(() => {
     const saved = localStorage.getItem('gamified_cs_save_slots');
     if (saved) {
       try {
         return JSON.parse(saved);
-      } catch (e) {}
+      } catch {
+        // Ignore json parse error
+      }
     }
+
     return {
       slot1: null,
       slot2: null,
@@ -147,9 +150,10 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({ isOpen, onClose }) =
         } else {
           alert("❌ Invalid save file format.");
         }
-      } catch (err) {
+      } catch {
         alert("❌ Failed to parse JSON save file.");
       }
+
     };
     reader.readAsText(file);
     e.target.value = '';
@@ -170,6 +174,7 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({ isOpen, onClose }) =
         </h3>
         
         <div className={styles.profileStats}>
+
           <div className={styles.profileRankBox}>
             <span className={styles.profileRankLabel}>Current Wizard Title</span>
             <div className={styles.profileRankValue}>{wizardRank}</div>
@@ -252,7 +257,7 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({ isOpen, onClose }) =
                       </span>
                       {slot && (
                         <span className={styles.slotMeta}>
-                          Saved: {slot.date} ({Object.values(slot.progression).reduce((acc: number, curr: any) => acc + (curr.stars || 0), 0)} ★)
+                          Saved: {slot.date} ({Object.values(slot.progression).reduce((acc: number, curr) => acc + (curr?.stars || 0), 0)} ★)
                         </span>
                       )}
                     </div>

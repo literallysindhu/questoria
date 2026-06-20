@@ -13,12 +13,17 @@ export const MascotGuide: React.FC = () => {
 
   useEffect(() => {
     if (!mascot.visible) {
-      setDisplayedText('');
+      setTimeout(() => {
+        setDisplayedText('');
+      }, 0);
       return;
     }
 
-    setDisplayedText('');
-    setIsTyping(true);
+    setTimeout(() => {
+      setDisplayedText('');
+      setIsTyping(true);
+    }, 0);
+
     let index = 0;
     const fullText = mascot.text;
     

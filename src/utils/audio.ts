@@ -28,7 +28,7 @@ const startOnInteraction = () => {
 
 function getAudioContext(): AudioContext {
   if (!audioCtx) {
-    audioCtx = new (window.AudioContext || (window as any).webkitAudioContext)();
+    audioCtx = new (window.AudioContext || (window as Window & { webkitAudioContext?: typeof AudioContext }).webkitAudioContext)();
   }
   if (audioCtx.state === 'suspended') {
     audioCtx.resume();
@@ -148,7 +148,7 @@ export const playHover = () => {
 
     osc.start();
     osc.stop(ctx.currentTime + 0.05);
-  } catch (e) {
+  } catch {
     // Ignore context blocked errors
   }
 };
@@ -171,7 +171,10 @@ export const playTypewriter = () => {
 
     osc.start();
     osc.stop(ctx.currentTime + 0.03);
-  } catch (e) {}
+  } catch {
+    // ignore
+  }
+
 };
 
 export const playSuccess = () => {
@@ -228,7 +231,10 @@ export const playMagicUnlock = () => {
     
     osc.start();
     osc.stop(now + duration);
-  } catch (e) {}
+  } catch {
+    // ignore
+  }
+
 };
 
 export const playError = () => {
@@ -257,5 +263,8 @@ export const playError = () => {
 
     osc.start();
     osc.stop(now + 0.25);
-  } catch (e) {}
+  } catch {
+    // ignore
+  }
+
 };

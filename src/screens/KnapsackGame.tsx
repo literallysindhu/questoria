@@ -34,24 +34,37 @@ export const KnapsackGame: React.FC = () => {
   const [packedFractions, setPackedFractions] = useState<{ [key: number]: number }>({});
   const [isSolved, setIsSolved] = useState(false);
   const [optimalValue, setOptimalValue] = useState(0);
-  const [packedValue, setPackedValue] = useState(0);
-  const [packedWeight, setPackedWeight] = useState(0);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
 
   // Ratio entry states
   const [userRatios, setUserRatios] = useState<{ [key: number]: string }>({});
   const [verifiedRatios, setVerifiedRatios] = useState<{ [key: number]: boolean }>({});
   const [calcDisplay, setCalcDisplay] = useState<string>('');
 
+  // Derived state calculated during render
+  let packedWeight = 0;
+  let packedValue = 0;
+  items.forEach((item) => {
+    const frac = packedFractions[item.id] || 0;
+    packedWeight += item.weight * frac;
+    packedValue += item.value * frac;
+  });
+  packedWeight = Number(packedWeight.toFixed(2));
+  packedValue = Number(packedValue.toFixed(2));
+
   const [introText, setIntroText] = useState('');
   const [isIntroTyping, setIsIntroTyping] = useState(true);
   const introFullText = "Greetings, adventurer! Master Elidor is preparing for an expedition. His backpack is enchanted but can only support a maximum weight constraint. The market shelves hold various items, each with a weight and gold value. However, these are bulk commodities (powders, liquids, or dusts)—you can pack fractional portions of them! We must choose the optimal fractions of items to pack, maximizing the total value without exceeding capacity! This is the famous Fractional Knapsack Problem, solved optimally using a Greedy Algorithm by prioritizing items with the highest value-to-weight ratio.";
 
+
   useEffect(() => {
-    if (phase !== 'intro') return;
-    setIntroText('');
-    setIsIntroTyping(true);
+    setTimeout(() => {
+      setIntroText('');
+      setIsIntroTyping(true);
+    }, 0);
     let index = 0;
+
     const interval = setInterval(() => {
       if (index < introFullText.length) {
         const char = introFullText.charAt(index);
@@ -130,8 +143,11 @@ export const KnapsackGame: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    generateMarket();
+    setTimeout(() => {
+      generateMarket();
+    }, 0);
   }, [generateMarket]);
+
 
   const handleBeginQuest = () => {
     playClick();
@@ -147,31 +163,28 @@ export const KnapsackGame: React.FC = () => {
     }
   };
 
-  // Update packed stats
-  useEffect(() => {
-    let weight = 0;
-    let val = 0;
-    items.forEach((item) => {
-      const frac = packedFractions[item.id] || 0;
-      weight += item.weight * frac;
-      val += item.value * frac;
-    });
-    setPackedWeight(Number(weight.toFixed(2)));
-    setPackedValue(Number(val.toFixed(2)));
-
-    // Clean error if they resolve overload
-    if (weight <= capacity) {
-      setErrorMessage(null);
-    }
-  }, [packedFractions, items, capacity]);
-
   const handleFractionChange = (id: number, fraction: number) => {
     if (isSolved) return;
-    setPackedFractions((prev) => ({
-      ...prev,
-      [id]: Number(fraction.toFixed(2)),
-    }));
+    setPackedFractions((prev) => {
+      const updated = {
+        ...prev,
+        [id]: Number(fraction.toFixed(2)),
+      };
+      
+      // Calculate weight to conditionally clear overload error
+      let weight = 0;
+      items.forEach((item) => {
+        const frac = item.id === id ? fraction : (prev[item.id] || 0);
+        weight += item.weight * frac;
+      });
+      if (weight <= capacity) {
+        setErrorMessage(null);
+      }
+      
+      return updated;
+    });
   };
+
 
   // Check individual ratio entry
   const checkItemRatio = (itemId: number) => {
@@ -209,7 +222,6 @@ export const KnapsackGame: React.FC = () => {
       try {
         const sanitized = calcDisplay.replace(/[^0-9+\-*/.]/g, '');
         if (!sanitized) return;
-        // eslint-disable-next-line no-new-func
         const result = new Function(`return ${sanitized}`)();
         if (typeof result === 'number' && !isNaN(result)) {
           setCalcDisplay(result % 1 === 0 ? result.toString() : Number(result.toFixed(4)).toString());

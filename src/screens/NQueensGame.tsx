@@ -21,7 +21,16 @@ export const NQueensGame: React.FC = () => {
     [false, false, false, false],
     [false, false, false, false],
   ]);
-  const [obstacle, setObstacle] = useState<Obstacle | null>(null);
+  const [obstacle] = useState<Obstacle | null>(() => {
+    const variantType = Math.random() > 0.5 ? 1 : 0;
+    if (variantType === 1) {
+      const r = Math.floor(Math.random() * 4);
+      const c = Math.floor(Math.random() * 4);
+      return { r, c };
+    }
+    return null;
+  });
+
   const [isSolved, setIsSolved] = useState(false);
   const [attempts, setAttempts] = useState(0);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -32,9 +41,11 @@ export const NQueensGame: React.FC = () => {
   const introFullText = "Wizard, we must place 4 magical defender queens on this chessboard courtyard. But be careful: if two queens share the same row, column, or diagonal, their magical forces will clash! If you place a queen and find yourself blocked, you must remove a previous queen and try another placement—this trial-and-error search with undoing/backtracking steps is called Backtracking, a core computer science search method!";
 
   useEffect(() => {
-    if (phase !== 'intro') return;
-    setIntroText('');
-    setIsIntroTyping(true);
+    setTimeout(() => {
+      setIntroText('');
+      setIsIntroTyping(true);
+    }, 0);
+
     let index = 0;
     const interval = setInterval(() => {
       if (index < introFullText.length) {
@@ -52,17 +63,7 @@ export const NQueensGame: React.FC = () => {
     return () => clearInterval(interval);
   }, [phase]);
 
-  // Pre-game obstacle initialization
-  useEffect(() => {
-    const variantType = Math.random() > 0.5 ? 1 : 0;
-    if (variantType === 1) {
-      const r = Math.floor(Math.random() * 4);
-      const c = Math.floor(Math.random() * 4);
-      setObstacle({ r, c });
-    } else {
-      setObstacle(null);
-    }
-  }, []);
+
 
   const handleBeginQuest = () => {
     playClick();
@@ -143,15 +144,20 @@ export const NQueensGame: React.FC = () => {
     const stuckNow = totalQueens > 0 && totalQueens < 4 && !conflicts && safeCount === 0;
     
     if (stuckNow && !isStuck) {
-      setIsStuck(true);
-      showMascot(
-        "Oh no, wizard! All remaining squares on the courtyard board are threatened by your placed queens. You are stuck! You must backtrack—remove one of your queens to find another combination.",
-        'neutral'
-      );
+      setTimeout(() => {
+        setIsStuck(true);
+        showMascot(
+          "Oh no, wizard! All remaining squares on the courtyard board are threatened by your placed queens. You are stuck! You must backtrack—remove one of your queens to find another combination.",
+          'neutral'
+        );
+      }, 0);
     } else if (!stuckNow && isStuck) {
-      setIsStuck(false);
-      hideMascot();
+      setTimeout(() => {
+        setIsStuck(false);
+        hideMascot();
+      }, 0);
     }
+
   }, [board, obstacle, isSolved, isStuck, checkThreat, showMascot, hideMascot]);
 
   const handleCellClick = (row: number, col: number) => {

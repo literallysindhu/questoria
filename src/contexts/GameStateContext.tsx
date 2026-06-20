@@ -1,4 +1,6 @@
+/* eslint-disable react-refresh/only-export-components */
 import React, { createContext, useContext, useState, useEffect, useCallback, useMemo } from 'react';
+
 import { getMuteStatus, toggleMute as toggleAudioMute } from '../utils/audio';
 
 export type ActiveScreen = 'landing' | 'map' | 'maze' | 'n-queens' | 'knapsack';
@@ -48,7 +50,7 @@ export const GameStateProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     if (saved) {
       try {
         return JSON.parse(saved);
-      } catch (e) {
+      } catch {
         return defaultProgression;
       }
     }

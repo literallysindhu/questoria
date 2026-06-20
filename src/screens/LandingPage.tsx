@@ -53,9 +53,11 @@ export const LandingPage: React.FC = () => {
     const totalAssets = ASSETS_TO_PRELOAD.length;
 
     if (totalAssets === 0) {
-      setProgress(100);
-      setDisperse(true);
-      setTimeout(() => setIsLoading(false), 1600);
+      setTimeout(() => {
+        setProgress(100);
+        setDisperse(true);
+        setTimeout(() => setIsLoading(false), 1600);
+      }, 0);
       return;
     }
 
