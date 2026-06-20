@@ -2,7 +2,7 @@
   min-height: 100vh;
   width: 100vw;
   background: radial-gradient(circle at center, rgba(16, 8, 38, 0.45) 0%, rgba(10, 5, 21, 0.95) 100%), 
-              url('../assets/n queens backdrop.png') no-repeat center center;
+              url('../assets/knapsack bg.png') no-repeat center center;
   background-size: cover;
   display: flex;
   flex-direction: column;

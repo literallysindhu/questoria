@@ -4,6 +4,7 @@ import { playClick, playHover, playSuccess, playError, playTypewriter } from '..
 import { ArrowLeft, RefreshCw, AlertCircle, Award } from 'lucide-react';
 import queenTexture from '../assets/n queen queen.png';
 import foxNeutral from '../assets/fox neutral.png';
+import nQueenUi from '../assets/n queen ui.png';
 import styles from './NQueensGame.module.css';
 
 interface Obstacle {
@@ -242,6 +243,9 @@ export const NQueensGame: React.FC = () => {
             <h1 className={`${styles.introTitle} fantasy-heading`}>
               Chess Challenge
             </h1>
+            <div className={styles.introPreviewFrame}>
+              <img src={nQueenUi} alt="Chess Challenge Preview" className={styles.introPreviewImg} />
+            </div>
             <div className={styles.introMascotSection}>
               <div className={styles.introAvatarFrame}>
                 <img src={foxNeutral} alt="Alister the Fox" className={styles.introAvatar} />

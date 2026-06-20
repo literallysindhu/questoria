@@ -2,7 +2,7 @@
   min-height: 100vh;
   width: 100vw;
   background: radial-gradient(circle at center, rgba(16, 8, 38, 0.45) 0%, rgba(10, 5, 21, 0.95) 100%), 
-              url('../assets/hero background.png') no-repeat center center;
+              url('../assets/bubble  sort bg.png') no-repeat center center;
   background-size: cover;
   display: flex;
   flex-direction: column;
@@ -445,4 +445,28 @@
   .runeNumber {
     font-size: 1.6rem;
   }
+}
+
+.introPreviewFrame {
+  width: 100%;
+  max-width: 500px;
+  height: 180px;
+  overflow: hidden;
+  border-radius: 12px;
+  border: var(--border-fantasy);
+  box-shadow: var(--shadow-fantasy);
+  margin-bottom: 8px;
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.introPreviewImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.9;
+  transition: transform 0.5s ease;
+}
+
+.introPreviewFrame:hover .introPreviewImg {
+  transform: scale(1.05);
 }

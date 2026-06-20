@@ -4,7 +4,7 @@ import { playClick, playHover, playError } from '../utils/audio';
 import { StarRating } from '../components/StarRating';
 import { Lock, ArrowLeft, RotateCcw, Compass, FolderOpen } from 'lucide-react';
 import { ProfileModal } from '../components/ProfileModal';
-import mazeIcon from '../assets/maze asset.png';
+import bubbleSortIcon from '../assets/bubble sort asset.png';
 import chessIcon from '../assets/chess asset.png';
 import knapsackIcon from '../assets/knapsack asset.png';
 import styles from './RealmSelection.module.css';
@@ -90,7 +90,7 @@ export const RealmSelection: React.FC = () => {
           onMouseEnter={playHover}
         >
           <div className={styles.iconWrapper}>
-            <img src={mazeIcon} alt="Bubble Sort Challenge" className={styles.icon} />
+            <img src={bubbleSortIcon} alt="Bubble Sort Challenge" className={styles.icon} />
           </div>
           <h3 className={styles.nodeTitle}>Bubble Sort Challenge</h3>
           <div className={styles.starsWrapper}>

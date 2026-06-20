@@ -3,6 +3,7 @@ import { useGameState } from '../contexts/GameStateContext';
 import { playClick, playHover, playSuccess, playError, playTypewriter } from '../utils/audio';
 import { ArrowLeft, RefreshCw, Award } from 'lucide-react';
 import foxNeutral from '../assets/fox neutral.png';
+import bubbleSortAsset from '../assets/bubble sort asset.png';
 import styles from './MazeGame.module.css';
 
 export const MazeGame: React.FC = () => {
@@ -188,6 +189,9 @@ export const MazeGame: React.FC = () => {
             <h1 className={`${styles.introTitle} fantasy-heading`}>
               Bubble Sort Challenge
             </h1>
+            <div className={styles.introPreviewFrame}>
+              <img src={bubbleSortAsset} alt="Bubble Sort Preview" className={styles.introPreviewImg} />
+            </div>
             <div className={styles.introMascotSection}>
               <div className={styles.introAvatarFrame}>
                 <img src={foxNeutral} alt="Alister the Fox" className={styles.introAvatar} />

@@ -8,7 +8,7 @@ import { ProfileModal } from '../components/ProfileModal';
 import styles from './LandingPage.module.css';
 
 // Import all remaining game assets for preloading
-import mazeIcon from '../assets/maze asset.png';
+import bubbleSortIcon from '../assets/bubble sort asset.png';
 import chessIcon from '../assets/chess asset.png';
 import knapsackIcon from '../assets/knapsack asset.png';
 import mapAreaFinal from '../assets/map area final.png';
@@ -16,18 +16,24 @@ import nQueenQueen from '../assets/n queen queen.png';
 import nQueensBackdrop from '../assets/n queens backdrop.png';
 import heroBackground from '../assets/hero background.png';
 import foxHappy from '../assets/fox happy.png';
+import bubbleSortBg from '../assets/bubble  sort bg.png';
+import knapsackBg from '../assets/knapsack bg.png';
+import nQueenUi from '../assets/n queen ui.png';
 
 const ASSETS_TO_PRELOAD = [
   foxNeutral,
   creatorPhoto,
-  mazeIcon,
+  bubbleSortIcon,
   chessIcon,
   knapsackIcon,
   mapAreaFinal,
   nQueenQueen,
   nQueensBackdrop,
   heroBackground,
-  foxHappy
+  foxHappy,
+  bubbleSortBg,
+  knapsackBg,
+  nQueenUi
 ];
 
 export const LandingPage: React.FC = () => {
