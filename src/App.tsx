@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { Analytics } from '@vercel/analytics/react';
 import { GameStateProvider, useGameState } from './contexts/GameStateContext';
 import LandingPage from './screens/LandingPage';
 import RealmSelection from './screens/RealmSelection';
@@ -41,6 +42,7 @@ export function App() {
   return (
     <GameStateProvider>
       <MainApp />
+      <Analytics />
     </GameStateProvider>
   );
 }
